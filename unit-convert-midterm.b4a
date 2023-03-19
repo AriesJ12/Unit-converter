@@ -1,0 +1,266 @@
+﻿Build1=Default,b4a.example
+File1=Layout.bal
+FileGroup1=Default Group
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="31"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=1
+NumberOfLibraries=2
+NumberOfModules=1
+Version=12.2
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Unit Converter
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	
+	Private background As Panel
+	Private userInp As EditText
+	Private result As Label
+	Private converterSpn As Spinner
+	Private moneyBef As Spinner
+	Private moneyAf As Spinner
+	Private massBef As Spinner
+	Private massAf As Spinner
+	Private distBef As Spinner
+	Private distAf As Spinner
+	Private convertMoney As Button
+	Private convertMass As Button
+	Private convertDist As Button
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+	Dim inConvert As String = "Convert"
+	'reveals money converter and hide everything
+	
+
+	'shows number keyboard
+	userInp.InputType = userInp.INPUT_TYPE_DECIMAL_NUMBERS
+	
+	moneyBef.Visible = True
+	moneyAf.Visible = True
+		
+	massBef.Visible = False
+	massAf.Visible = False
+		
+	distBef.Visible = False
+	distAf.Visible = False
+		
+	convertMoney.Visible = True
+	convertMass.Visible = False
+	convertDist.Visible = False
+	
+	'load the texts on buttons
+	convertMoney.Text = inConvert
+	convertDist.Text = inConvert
+	convertMass.Text = inConvert
+	
+	userInp.Hint = "Input"
+	result.Text = "Result"
+	
+	'add the options in the spinner of choosing what to convert
+	converterSpn.Add("Currency")
+	converterSpn.Add("Mass")
+	converterSpn.Add("Distance/length")
+	
+	'add the options on money spinners
+	Dim money As List
+	money.Initialize2(Array("PHP","US Dollar", "Yuan", "Ruble", "Euro"))
+	moneyBef.AddAll(money)
+	moneyAf.AddAll(money)
+	
+	'add the options on temperature spinners
+	Dim mass As List
+	mass.Initialize2(Array("kilogram", "gram", "pound"))
+	massBef.AddAll(mass)
+	massAf.AddAll(mass)
+	
+	'add the options on distance spinners
+	Dim distance As List
+	distance.Initialize2(Array("kilometer", "centimeter", "meter", "foot"))	
+	distBef.AddAll(distance)
+	distAf.AddAll(distance)
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+
+Private Sub convertMoney_Click
+	Dim from As String
+	from = moneyBef.SelectedItem
+	
+	Dim into As String
+	into = moneyAf.SelectedItem
+	
+	Dim dollarMoney As Map
+	dollarMoney.Initialize
+	'set US dollar as a standard
+	'the plan is to get the currency you want to convert from, convert it to us dollar, then convert it to the currency the user wants it to
+	
+	dollarMoney.Put("PHP", 54.91)
+	dollarMoney.Put("US Dollar", 1.00)
+	dollarMoney.Put("Yuan", 6.90)
+	dollarMoney.Put("Ruble", 76.26)
+	dollarMoney.Put("Euro", 0.94)
+	
+	Dim userMoney As Float
+	If(checkvalue) Then
+		userMoney = userInp.Text
+	Else
+		Return
+	End If
+	Dim const place As Int = 2
+	Dim const minInt As Int = 0
+	Dim res As Double = userMoney/dollarMoney.Get(from) * dollarMoney.Get(into)
+	result.Text = NumberFormat(res, minInt, place)	
+End Sub
+
+Sub checkvalue() As Boolean
+
+	' Get the user input from the EditText view
+	Dim userInput As String
+	userInput = userInp.Text
+
+	' Check if the input is empty
+	If userInput = "" Then
+		ToastMessageShow("Please enter a value", True)
+		Return False
+	End If
+	
+	Dim userInputDouble As Double = userInp.Text
+	' Check if the input is a valid number
+	If userInputDouble < 0 Then
+		ToastMessageShow("Please enter a positive number", True)
+		Return False
+	End If
+
+	Return True
+	
+End Sub
+
+
+Private Sub converterSpn_ItemClick (Position As Int, Value As Object)
+	Dim convert As Int = converterSpn.SelectedIndex
+	
+	If convert = 0 Then
+		moneyBef.Visible = True
+		moneyAf.Visible = True
+		
+		massBef.Visible = False
+		massAf.Visible = False
+		
+		distBef.Visible = False
+		distAf.Visible = False
+		
+		convertMoney.Visible = True
+		convertMass.Visible = False
+		convertDist.Visible = False
+		
+	Else If convert = 1 Then
+		moneyBef.Visible = False
+		moneyAf.Visible = False
+		
+		massBef.Visible = True
+		massAf.Visible = True
+		
+		distBef.Visible = False
+		distAf.Visible = False
+		
+		convertMoney.Visible = False
+		convertMass.Visible = True
+		convertDist.Visible = False
+	Else If convert = 2 Then
+		moneyBef.Visible = False
+		moneyAf.Visible = False
+		
+		massBef.Visible = False
+		massAf.Visible = False
+		
+		distBef.Visible = True
+		distAf.Visible = True
+		
+		convertMoney.Visible = False
+		convertMass.Visible = False
+		convertDist.Visible = True
+	End If
+End Sub
+
+Private Sub convertMass_Click
+	Dim from As String
+	from = massBef.SelectedItem
+	
+	Dim into As String
+	into = massAf.SelectedItem
+	
+	Dim mass As Map
+	mass.Initialize
+	'set US dollar as a standard
+	'the plan is to get the currency you want to convert from, convert it to us dollar, then convert it to the currency the user wants it to
+	
+	mass.Put("kilogram", 0.001)
+	mass.Put("gram", 1.00)
+	mass.Put("pound", 0.00220462)
+	Dim userMass As Float
+	If(checkvalue) Then
+		userMass = userInp.Text
+	Else
+		Return
+	End If
+	Dim const place As Int = 5
+	Dim const minInt As Int = 0
+	Dim res As Double = userMass/mass.Get(from) * mass.Get(into)
+	result.Text = NumberFormat(res,minInt, place)
+End Sub
+
+Private Sub convertDist_Click
+	Dim from As String
+	from = distBef.SelectedItem
+	
+	Dim into As String
+	into = distAf.SelectedItem
+	
+	Dim distance As Map
+	distance.Initialize
+	
+	distance.Put("kilometer", 0.001)
+	distance.Put("centimeter", 100.00)
+	distance.Put("meter", 1.00)
+	distance.Put("foot", 3.28084)
+	Dim userDistance As Float
+	If(checkvalue) Then
+		userDistance = userInp.Text
+	Else
+		Return
+	End If
+	Dim const place As Int = 5
+	Dim const minInt As Int = 0
+	Dim res As Double = userDistance/distance.Get(from) * distance.Get(into)
+	result.Text = NumberFormat(res,minInt, place)
+End Sub
