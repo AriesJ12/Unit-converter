@@ -63,44 +63,40 @@ Sub Globals
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
-'	Activity.LoadLayout("StartingFrame")
-	mainFrame.Initialize("") : mainFrame.Visible=True
-	Activity.AddView(mainFrame,0,0,100%x,100%y)
-	mainFrame.LoadLayout("MainFrame")
-	
-	startFrame.Initialize("") : startFrame.Visible=False
-	Activity.AddView(startFrame,0,0,100%x,100%y)
-	startFrame.LoadLayout("StartingFrame")
-	
-	Dim inConvert As String = "Convert"
-	'reveals money converter and hide everything
-	
-	startFrame.Visible=True
+'	Load layout, in this case load the starting layout
+	init
 
 	'shows number keyboard
 	userInp.InputType = userInp.INPUT_TYPE_DECIMAL_NUMBERS
-	
-	moneyBef.Visible = True
-	moneyAf.Visible = True
-		
-	massBef.Visible = False
-	massAf.Visible = False
-		
-	distBef.Visible = False
-	distAf.Visible = False
-		
-	convertMoney.Visible = True
-	convertMass.Visible = False
-	convertDist.Visible = False
-	
-	'load the texts on buttons
-	convertMoney.Text = inConvert
-	convertDist.Text = inConvert
-	convertMass.Text = inConvert
-	
-	userInp.Hint = "Input"
-	result.Text = "Result"
 
+'	makes the hint and text to their first forms
+	userInp.Hint = "0.00"
+	result.Text = "0.00"
+	
+'	dec=lare the available convert
+	declareList
+	
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub init
+	mainFrame.Initialize("") : mainFrame.Visible=False
+	Activity.AddView(mainFrame,0,0,100%x,100%y)
+	mainFrame.LoadLayout("MainFrame")
+	
+	startFrame.Initialize("") : startFrame.Visible=True
+	Activity.AddView(startFrame,0,0,100%x,100%y)
+	startFrame.LoadLayout("StartingFrame")
+End Sub
+
+Sub declareList
 	'add the options on money spinners
 	Dim money As List
 	money.Initialize2(Array("PHP","US Dollar", "Yuan", "Ruble", "Euro"))
@@ -115,19 +111,10 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	'add the options on distance spinners
 	Dim distance As List
-	distance.Initialize2(Array("kilometer", "centimeter", "meter", "foot"))	
+	distance.Initialize2(Array("kilometer", "centimeter", "meter", "foot"))
 	distBef.AddAll(distance)
 	distAf.AddAll(distance)
 End Sub
-
-Sub Activity_Resume
-
-End Sub
-
-Sub Activity_Pause (UserClosed As Boolean)
-
-End Sub
-
 
 Private Sub convertMoney_Click
 	Dim from As String
