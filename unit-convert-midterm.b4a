@@ -1,12 +1,20 @@
 ﻿Build1=Default,b4a.example
-File1=Layout.bal
+File1=coin.png
+File2=MainFrame.bal
+File3=ruler.png
+File4=StartingFrame.bal
+File5=weight.jpg
 FileGroup1=Default Group
+FileGroup2=Default Group
+FileGroup3=Default Group
+FileGroup4=Default Group
+FileGroup5=Default Group
 Group=Default Group
 Library1=core
 Library2=xui
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="31"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
 Module1=Starter
-NumberOfFiles=1
+NumberOfFiles=5
 NumberOfLibraries=2
 NumberOfModules=1
 Version=12.2
@@ -21,8 +29,8 @@ Version=12.2
 #End Region
 
 #Region  Activity Attributes 
-	#FullScreen: False
-	#IncludeTitle: True
+	#FullScreen: True
+	#IncludeTitle: False
 #End Region
 
 Sub Process_Globals
@@ -37,7 +45,6 @@ Sub Globals
 	Private background As Panel
 	Private userInp As EditText
 	Private result As Label
-	Private converterSpn As Spinner
 	Private moneyBef As Spinner
 	Private moneyAf As Spinner
 	Private massBef As Spinner
@@ -47,13 +54,28 @@ Sub Globals
 	Private convertMoney As Button
 	Private convertMass As Button
 	Private convertDist As Button
+	
+	Private mainFrame, startFrame As Panel
+	Private coinClick As Boolean = False
+	Private weightClick As Boolean = False
+	Private lengthClick As Boolean = False
+	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
-	Activity.LoadLayout("Layout")
+'	Activity.LoadLayout("StartingFrame")
+	mainFrame.Initialize("") : mainFrame.Visible=True
+	Activity.AddView(mainFrame,0,0,100%x,100%y)
+	mainFrame.LoadLayout("MainFrame")
+	
+	startFrame.Initialize("") : startFrame.Visible=False
+	Activity.AddView(startFrame,0,0,100%x,100%y)
+	startFrame.LoadLayout("StartingFrame")
+	
 	Dim inConvert As String = "Convert"
 	'reveals money converter and hide everything
 	
+	startFrame.Visible=True
 
 	'shows number keyboard
 	userInp.InputType = userInp.INPUT_TYPE_DECIMAL_NUMBERS
@@ -78,12 +100,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	userInp.Hint = "Input"
 	result.Text = "Result"
-	
-	'add the options in the spinner of choosing what to convert
-	converterSpn.Add("Currency")
-	converterSpn.Add("Mass")
-	converterSpn.Add("Distance/length")
-	
+
 	'add the options on money spinners
 	Dim money As List
 	money.Initialize2(Array("PHP","US Dollar", "Yuan", "Ruble", "Euro"))
@@ -166,52 +183,6 @@ Sub checkvalue() As Boolean
 End Sub
 
 
-Private Sub converterSpn_ItemClick (Position As Int, Value As Object)
-	Dim convert As Int = converterSpn.SelectedIndex
-	
-	If convert = 0 Then
-		moneyBef.Visible = True
-		moneyAf.Visible = True
-		
-		massBef.Visible = False
-		massAf.Visible = False
-		
-		distBef.Visible = False
-		distAf.Visible = False
-		
-		convertMoney.Visible = True
-		convertMass.Visible = False
-		convertDist.Visible = False
-		
-	Else If convert = 1 Then
-		moneyBef.Visible = False
-		moneyAf.Visible = False
-		
-		massBef.Visible = True
-		massAf.Visible = True
-		
-		distBef.Visible = False
-		distAf.Visible = False
-		
-		convertMoney.Visible = False
-		convertMass.Visible = True
-		convertDist.Visible = False
-	Else If convert = 2 Then
-		moneyBef.Visible = False
-		moneyAf.Visible = False
-		
-		massBef.Visible = False
-		massAf.Visible = False
-		
-		distBef.Visible = True
-		distAf.Visible = True
-		
-		convertMoney.Visible = False
-		convertMass.Visible = False
-		convertDist.Visible = True
-	End If
-End Sub
-
 Private Sub convertMass_Click
 	Dim from As String
 	from = massBef.SelectedItem
@@ -263,4 +234,80 @@ Private Sub convertDist_Click
 	Dim const minInt As Int = 0
 	Dim res As Double = userDistance/distance.Get(from) * distance.Get(into)
 	result.Text = NumberFormat(res,minInt, place)
+End Sub
+
+
+Private Sub coin_Click
+	coinClick = True
+	weightClick = False
+	lengthClick = False
+	transferMain
+End Sub
+
+
+
+Private Sub Weight_Click
+	coinClick = False
+	weightClick = True
+	lengthClick = False
+	transferMain
+End Sub
+
+Private Sub Length_Click
+	coinClick = False
+	weightClick = False
+	lengthClick = True
+	transferMain
+End Sub
+
+Sub transferMain
+	startFrame.Visible = False
+	mainFrame.Visible = True
+	If coinClick = True Then
+		moneyBef.Visible = True
+		moneyAf.Visible = True
+		
+		massBef.Visible = False
+		massAf.Visible = False
+		
+		distBef.Visible = False
+		distAf.Visible = False
+		
+		convertMoney.Visible = True
+		convertMass.Visible = False
+		convertDist.Visible = False
+		
+	Else If weightClick = True Then
+		moneyBef.Visible = False
+		moneyAf.Visible = False
+		
+		massBef.Visible = True
+		massAf.Visible = True
+		
+		distBef.Visible = False
+		distAf.Visible = False
+		
+		convertMoney.Visible = False
+		convertMass.Visible = True
+		convertDist.Visible = False
+		
+	Else If lengthClick = True Then
+		moneyBef.Visible = False
+		moneyAf.Visible = False
+		
+		massBef.Visible = False
+		massAf.Visible = False
+		
+		distBef.Visible = True
+		distAf.Visible = True
+		
+		convertMoney.Visible = False
+		convertMass.Visible = False
+		convertDist.Visible = True
+	End If
+End Sub
+
+Private Sub backImage_Click
+	mainFrame.Visible = False
+	startFrame.Visible = True
 End Sub

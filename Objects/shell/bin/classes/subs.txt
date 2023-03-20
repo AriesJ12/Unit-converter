@@ -2,46 +2,62 @@ b4a.example
 0
 0
 0
-main,activity_create,1,1,38,90
-,convertdist,,converterspn,,convertmass,,convertmoney,,distaf,,distbef,,massaf,,massbef,,moneyaf,,moneybef,,result,,userinp
-,convertdist,,converterspn,,convertmass,,convertmoney,,distaf,,distbef,,massaf,,massbef,,moneyaf,,moneybef,,result,,userinp
+main,activity_create,1,0,44,100
+,mainframe,,background,,convertdist,,convertmass,,convertmoney,,distaf,,distbef,,massaf,,massbef,,moneyaf,,moneybef,,result,,userinp,,startframe
+,background,,convertdist,,convertmass,,convertmoney,,distaf,,distbef,,massaf,,massbef,,moneyaf,,moneybef,,result,,userinp
 
-main,activity_pause,0,0,96,98
-
-
-
-main,activity_resume,0,0,92,94
+main,activity_pause,0,0,106,108
 
 
 
-main,checkvalue,0,1,131,152
+main,activity_resume,0,0,102,104
+
+
+
+main,backimage_click,0,0,289,292
+,mainframe,,startframe
+
+
+main,checkvalue,0,0,141,162
 ,userinp
 
 
-main,convertdist_click,0,0,228,252
+main,coin_click,0,0,219,224
+,coinclick,,weightclick,,lengthclick,,startframe,,mainframe,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf,,convertmoney,,convertmass,,convertdist
+,coinclick,,weightclick,,lengthclick
+,transfermain
+main,transfermain,0,0,242,287
+,startframe,,mainframe,,coinclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf,,convertmoney,,convertmass,,convertdist,,weightclick,,lengthclick
+
+
+main,convertdist_click,0,0,192,216
 ,distbef,,distaf,,userinp,,result
 
 ,checkvalue
-main,converterspn_itemclick,0,0,155,199
-,converterspn,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf,,convertmoney,,convertmass,,convertdist
-
-
-main,convertmass_click,0,0,201,226
+main,convertmass_click,0,0,165,190
 ,massbef,,massaf,,userinp,,result
 
 ,checkvalue
-main,convertmoney_click,0,0,101,129
+main,convertmoney_click,0,0,111,139
 ,moneybef,,moneyaf,,userinp,,result
 
 ,checkvalue
-main,globals,0,1,21,36
+main,globals,0,1,21,42
+,coinclick,,weightclick,,lengthclick
+,coinclick,,weightclick,,lengthclick
 
-
-
+main,length_click,0,0,235,240
+,coinclick,,weightclick,,lengthclick,,startframe,,mainframe,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf,,convertmoney,,convertmass,,convertdist
+,coinclick,,weightclick,,lengthclick
+,transfermain
 main,process_globals,0,1,15,19
 
 
 
+main,weight_click,0,0,228,233
+,coinclick,,weightclick,,lengthclick,,startframe,,mainframe,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf,,convertmoney,,convertmass,,convertdist
+,coinclick,,weightclick,,lengthclick
+,transfermain
 starter,application_error,0,0,27,29
 
 
