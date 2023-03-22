@@ -1,20 +1,26 @@
 ﻿Build1=Default,b4a.example
-File1=coin.png
-File2=MainFrame.bal
-File3=ruler.png
-File4=StartingFrame.bal
-File5=weight.jpg
+File1=backButton (1).png
+File2=backspace.png
+File3=coin.png
+File4=convertText.png
+File5=MainFrame.bal
+File6=ruler.png
+File7=StartingFrame.bal
+File8=weight.jpg
 FileGroup1=Default Group
 FileGroup2=Default Group
 FileGroup3=Default Group
 FileGroup4=Default Group
 FileGroup5=Default Group
+FileGroup6=Default Group
+FileGroup7=Default Group
+FileGroup8=Default Group
 Group=Default Group
 Library1=core
 Library2=xui
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="31"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
 Module1=Starter
-NumberOfFiles=5
+NumberOfFiles=8
 NumberOfLibraries=2
 NumberOfModules=1
 Version=12.2
@@ -24,7 +30,7 @@ Version=12.2
 	#VersionCode: 1
 	#VersionName: 
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
-	#SupportedOrientations: unspecified
+	#SupportedOrientations: Portrait
 	#CanInstallToExternalStorage: False
 #End Region
 
@@ -51,10 +57,6 @@ Sub Globals
 	Private massAf As Spinner
 	Private distBef As Spinner
 	Private distAf As Spinner
-	Private convertMoney As Button
-	Private convertMass As Button
-	Private convertDist As Button
-	
 	Private mainFrame, startFrame As Panel
 	Private coinClick As Boolean = False
 	Private weightClick As Boolean = False
@@ -260,10 +262,6 @@ Sub transferMain
 		distBef.Visible = False
 		distAf.Visible = False
 		
-		convertMoney.Visible = True
-		convertMass.Visible = False
-		convertDist.Visible = False
-		
 	Else If weightClick = True Then
 		moneyBef.Visible = False
 		moneyAf.Visible = False
@@ -274,9 +272,6 @@ Sub transferMain
 		distBef.Visible = False
 		distAf.Visible = False
 		
-		convertMoney.Visible = False
-		convertMass.Visible = True
-		convertDist.Visible = False
 		
 	Else If lengthClick = True Then
 		moneyBef.Visible = False
@@ -288,9 +283,6 @@ Sub transferMain
 		distBef.Visible = True
 		distAf.Visible = True
 		
-		convertMoney.Visible = False
-		convertMass.Visible = False
-		convertDist.Visible = True
 	End If
 End Sub
 

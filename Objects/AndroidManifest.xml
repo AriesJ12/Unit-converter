@@ -22,7 +22,7 @@
 			android:launchMode="singleTop"
 			android:name=".main"
 			android:label="Unit Converter"
-			android:screenOrientation="unspecified"
+			android:screenOrientation="portrait"
 			android:exported="true">
 			<intent-filter>
 			   <action android:name="android.intent.action.MAIN" />
