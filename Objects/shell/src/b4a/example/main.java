@@ -57,7 +57,7 @@ public boolean isSingleton() {
 public static RemoteObject __c = RemoteObject.declareNull("anywheresoftware.b4a.keywords.Common");
 public static RemoteObject _xui = RemoteObject.declareNull("anywheresoftware.b4a.objects.B4XViewWrapper.XUI");
 public static RemoteObject _background = RemoteObject.declareNull("anywheresoftware.b4a.objects.PanelWrapper");
-public static RemoteObject _userinp = RemoteObject.declareNull("anywheresoftware.b4a.objects.EditTextWrapper");
+public static RemoteObject _userinp = RemoteObject.declareNull("anywheresoftware.b4a.objects.LabelWrapper");
 public static RemoteObject _result = RemoteObject.declareNull("anywheresoftware.b4a.objects.LabelWrapper");
 public static RemoteObject _moneybef = RemoteObject.declareNull("anywheresoftware.b4a.objects.SpinnerWrapper");
 public static RemoteObject _moneyaf = RemoteObject.declareNull("anywheresoftware.b4a.objects.SpinnerWrapper");
@@ -70,8 +70,10 @@ public static RemoteObject _startframe = RemoteObject.declareNull("anywheresoftw
 public static RemoteObject _coinclick = RemoteObject.createImmutable(false);
 public static RemoteObject _weightclick = RemoteObject.createImmutable(false);
 public static RemoteObject _lengthclick = RemoteObject.createImmutable(false);
+public static RemoteObject _first = RemoteObject.createImmutable(false);
+public static RemoteObject _second = RemoteObject.createImmutable(false);
 public static b4a.example.starter _starter = null;
   public Object[] GetGlobals() {
-		return new Object[] {"Activity",main.mostCurrent._activity,"background",main.mostCurrent._background,"coinClick",main._coinclick,"distAf",main.mostCurrent._distaf,"distBef",main.mostCurrent._distbef,"lengthClick",main._lengthclick,"mainFrame",main.mostCurrent._mainframe,"massAf",main.mostCurrent._massaf,"massBef",main.mostCurrent._massbef,"moneyAf",main.mostCurrent._moneyaf,"moneyBef",main.mostCurrent._moneybef,"result",main.mostCurrent._result,"Starter",Debug.moduleToString(b4a.example.starter.class),"startFrame",main.mostCurrent._startframe,"userInp",main.mostCurrent._userinp,"weightClick",main._weightclick,"xui",main._xui};
+		return new Object[] {"Activity",main.mostCurrent._activity,"background",main.mostCurrent._background,"coinClick",main._coinclick,"distAf",main.mostCurrent._distaf,"distBef",main.mostCurrent._distbef,"first",main._first,"lengthClick",main._lengthclick,"mainFrame",main.mostCurrent._mainframe,"massAf",main.mostCurrent._massaf,"massBef",main.mostCurrent._massbef,"moneyAf",main.mostCurrent._moneyaf,"moneyBef",main.mostCurrent._moneybef,"result",main.mostCurrent._result,"second",main._second,"Starter",Debug.moduleToString(b4a.example.starter.class),"startFrame",main.mostCurrent._startframe,"userInp",main.mostCurrent._userinp,"weightClick",main._weightclick,"xui",main._xui};
 }
 }

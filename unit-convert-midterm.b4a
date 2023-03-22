@@ -49,7 +49,7 @@ Sub Globals
 	'These global variables will be redeclared each time the activity is created.
 	
 	Private background As Panel
-	Private userInp As EditText
+	Private userInp As Label
 	Private result As Label
 	Private moneyBef As Spinner
 	Private moneyAf As Spinner
@@ -57,27 +57,32 @@ Sub Globals
 	Private massAf As Spinner
 	Private distBef As Spinner
 	Private distAf As Spinner
-	Private mainFrame, startFrame As Panel
+	Private mainFrame, startFrame As Panel 'for layout
+	'for saving user click in starting frame
 	Private coinClick As Boolean = False
 	Private weightClick As Boolean = False
 	Private lengthClick As Boolean = False
-	
+	'until here
+	'saves the user click on input//checks what is input and result
+	Private first As Boolean = True
+	Private second As Boolean = False
+	'until here
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 '	Load layout, in this case load the starting layout
 	init
 
-	'shows number keyboard
-	userInp.InputType = userInp.INPUT_TYPE_DECIMAL_NUMBERS
 
 '	makes the hint and text to their first forms
-	userInp.Hint = "0.00"
-	result.Text = "0.00"
+	userInp.Text = "0"
+	result.Text = "0"
 	
 '	dec=lare the available convert
 	declareList
 	
+	'makes the first input the input//making it obvious
+	changeText
 End Sub
 
 Sub Activity_Resume
@@ -88,16 +93,31 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
-Sub init
+Sub changeText
+	If first Then
+		userInp.TextColor = Colors.RGB(0,0,255)
+		userInp.TextSize = 30
+		result.TextColor = Colors.RGB(0,0,0)
+		result.TextSize = 17
+	Else If second Then
+		userInp.TextColor = Colors.RGB(0,0,0)
+		userInp.TextSize = 17
+		result.TextColor = Colors.RGB(0,0,255)
+		result.TextSize = 30
+	End If
+End Sub
+'initialize loading layout
+Sub init 'for loading the layout
 	mainFrame.Initialize("") : mainFrame.Visible=False
-	Activity.AddView(mainFrame,0,0,100%x,100%y)
-	mainFrame.LoadLayout("MainFrame")
+	Activity.AddView(mainFrame,0,0,100%x,100%y) 'addview sets the width
+	mainFrame.LoadLayout("MainFrame") ' load
 	
 	startFrame.Initialize("") : startFrame.Visible=True
 	Activity.AddView(startFrame,0,0,100%x,100%y)
 	startFrame.LoadLayout("StartingFrame")
 End Sub
 
+'declare necessary info function
 Sub declareList
 	'add the options on money spinners
 	Dim money As List
@@ -118,9 +138,11 @@ Sub declareList
 	distAf.AddAll(distance)
 End Sub
 
-Private Sub convertMoney_Click
+'convert money function
+Sub convertMoney
+	'convert money
 	Dim from As String
-	from = moneyBef.SelectedItem
+	from = moneyBef.SelectedItem 'get selected item
 	
 	Dim into As String
 	into = moneyAf.SelectedItem
@@ -136,43 +158,17 @@ Private Sub convertMoney_Click
 	dollarMoney.Put("Ruble", 76.26)
 	dollarMoney.Put("Euro", 0.94)
 	
-	Dim userMoney As Float
-	If(checkvalue) Then
-		userMoney = userInp.Text
-	Else
-		Return
-	End If
+	Dim userMoney As Float = userInp.Text
+	
 	Dim const place As Int = 2
 	Dim const minInt As Int = 0
 	Dim res As Double = userMoney/dollarMoney.Get(from) * dollarMoney.Get(into)
-	result.Text = NumberFormat(res, minInt, place)	
+	result.Text = NumberFormat(res, minInt, place)
 End Sub
 
-Sub checkvalue() As Boolean
-
-	' Get the user input from the EditText view
-	Dim userInput As String
-	userInput = userInp.Text
-
-	' Check if the input is empty
-	If userInput = "" Then
-		ToastMessageShow("Please enter a value", True)
-		Return False
-	End If
-	
-	Dim userInputDouble As Double = userInp.Text
-	' Check if the input is a valid number
-	If userInputDouble < 0 Then
-		ToastMessageShow("Please enter a positive number", True)
-		Return False
-	End If
-
-	Return True
-	
-End Sub
-
-
-Private Sub convertMass_Click
+'convert mass function
+Sub convertMass
+	'convert mass
 	Dim from As String
 	from = massBef.SelectedItem
 	
@@ -187,19 +183,17 @@ Private Sub convertMass_Click
 	mass.Put("kilogram", 0.001)
 	mass.Put("gram", 1.00)
 	mass.Put("pound", 0.00220462)
-	Dim userMass As Float
-	If(checkvalue) Then
-		userMass = userInp.Text
-	Else
-		Return
-	End If
+	Dim userMass As Float = userInp.Text
+	
 	Dim const place As Int = 5
 	Dim const minInt As Int = 0
 	Dim res As Double = userMass/mass.Get(from) * mass.Get(into)
 	result.Text = NumberFormat(res,minInt, place)
 End Sub
 
-Private Sub convertDist_Click
+'convert distance/length function
+Sub convertDist
+	'convert distance
 	Dim from As String
 	from = distBef.SelectedItem
 	
@@ -213,26 +207,22 @@ Private Sub convertDist_Click
 	distance.Put("centimeter", 100.00)
 	distance.Put("meter", 1.00)
 	distance.Put("foot", 3.28084)
-	Dim userDistance As Float
-	If(checkvalue) Then
-		userDistance = userInp.Text
-	Else
-		Return
-	End If
+	Dim userDistance As Float = userInp.Text
+
 	Dim const place As Int = 5
 	Dim const minInt As Int = 0
 	Dim res As Double = userDistance/distance.Get(from) * distance.Get(into)
 	result.Text = NumberFormat(res,minInt, place)
 End Sub
 
-
+'functions below just get what is selected by the user
+'needed because you need to show the needed spinner in the next part of the codes
 Private Sub coin_Click
 	coinClick = True
 	weightClick = False
 	lengthClick = False
 	transferMain
 End Sub
-
 
 
 Private Sub Weight_Click
@@ -248,10 +238,14 @@ Private Sub Length_Click
 	lengthClick = True
 	transferMain
 End Sub
+'until here
 
+'transfer to the main frame
 Sub transferMain
+	'turn off the startframe, and turn on the main frame
 	startFrame.Visible = False
 	mainFrame.Visible = True
+	'code below is just making the approriate spinner visible
 	If coinClick = True Then
 		moneyBef.Visible = True
 		moneyAf.Visible = True
@@ -287,6 +281,143 @@ Sub transferMain
 End Sub
 
 Private Sub backImage_Click
+	'turn off the visibility of the main frame and turn the visibility of the start
+	'frame to true
 	mainFrame.Visible = False
 	startFrame.Visible = True
+	'set the userinp and result to 0
+	userInp.Text = "0"
+	result.Text = "0"
+End Sub
+
+'input function
+Sub input(number As String)
+	If userInp.Text = 0 Then 'checks if the value of text is 0
+		userInp.Text = number 'change the 0 to the inputted number
+		Return 'exit the process
+	End If
+	'takes the number that you want to input then put it in the user input
+	Dim usr As StringBuilder
+	usr.Initialize
+	usr.Append(userInp.Text) ' gets the user inp text
+	usr.Append(number) 'add the number that was clicked to the
+	userInp.Text = usr 'update the userinp
+End Sub
+
+'dot button
+Private Sub Buttondot_Click
+	Dim number As String = "." 'adds a dot
+	input(number)
+End Sub
+
+'clear button
+Private Sub Buttonclear_Click
+	'sets the text to 0
+	userInp.Text = "0"
+	result.Text = "0"
+	convert
+End Sub
+
+'backspace button
+Private Sub backspace_Click
+	Dim usr As String = userInp.Text
+	If usr.Length > 1 Then 'checks if there is text
+		usr = usr.SubString2(0, usr.Length -1) 'removes the last one
+		'the process above is get the SUBSTRING starting at 0 until the index -1
+	Else  'backspace for single characters
+		usr = "0" 'if deleted it will turn into 0
+	End If
+
+	userInp.Text = usr
+	'change the userinp text
+	convert
+End Sub
+
+'code belows works like this:: below
+'buttons function below just adds a number to the input, to the far most right
+'every click calculates the result
+'
+Sub convert
+	'checks which is selected then convert it
+	If coinClick = True Then
+		convertMoney
+	else if weightClick = True Then
+		convertMass
+	else if lengthClick = True Then
+		convertDist
+	End If
+End Sub
+
+Private Sub Button0_Click
+	Dim const number As String = "0"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button1_Click
+	Dim const number As String = "1"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button2_Click
+	Dim const number As String = "2"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button3_Click
+	Dim const number As String = "3"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button4_Click
+	Dim const number As String = "4"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button5_Click
+	Dim const number As String = "5"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button6_Click
+	Dim const number As String = "6"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button7_Click
+	Dim const number As String = "7"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button8_Click
+	Dim const number As String = "8"
+	input(number)
+	convert
+End Sub
+ 
+Private Sub Button9_Click
+	Dim const number As String = "9"
+	input(number)
+	convert
+End Sub
+'until here
+ 
+
+Private Sub userInp_Click
+	first = True
+	second = False
+	changeText
+End Sub
+
+Private Sub result_Click
+	first = False
+	second = True
+	changeText
 End Sub
