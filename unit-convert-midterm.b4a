@@ -64,6 +64,7 @@ Sub Globals
 	Private lengthClick As Boolean = False
 	'until here
 	'saves the user click on input//checks what is input and result
+	
 	Private first As Boolean = True
 	Private second As Boolean = False
 	'until here
@@ -75,8 +76,8 @@ Sub Activity_Create(FirstTime As Boolean)
 
 
 '	makes the hint and text to their first forms
-	userInp.Text = "0"
-	result.Text = "0"
+	userInp.Text = 0
+	result.Text = 0
 	
 '	dec=lare the available convert
 	declareList
@@ -96,14 +97,14 @@ End Sub
 Sub changeText
 	If first Then
 		userInp.TextColor = Colors.RGB(0,0,255)
-		userInp.TextSize = 30
+		userInp.TextSize = 25
 		result.TextColor = Colors.RGB(0,0,0)
 		result.TextSize = 17
 	Else If second Then
 		userInp.TextColor = Colors.RGB(0,0,0)
 		userInp.TextSize = 17
 		result.TextColor = Colors.RGB(0,0,255)
-		result.TextSize = 30
+		result.TextSize = 25
 	End If
 End Sub
 'initialize loading layout
@@ -158,12 +159,7 @@ Sub convertMoney
 	dollarMoney.Put("Ruble", 76.26)
 	dollarMoney.Put("Euro", 0.94)
 	
-	Dim userMoney As Float = userInp.Text
-	
-	Dim const place As Int = 2
-	Dim const minInt As Int = 0
-	Dim res As Double = userMoney/dollarMoney.Get(from) * dollarMoney.Get(into)
-	result.Text = NumberFormat(res, minInt, place)
+	mainConvert(dollarMoney.Get(from), dollarMoney.Get(into))
 End Sub
 
 'convert mass function
@@ -183,12 +179,8 @@ Sub convertMass
 	mass.Put("kilogram", 0.001)
 	mass.Put("gram", 1.00)
 	mass.Put("pound", 0.00220462)
-	Dim userMass As Float = userInp.Text
 	
-	Dim const place As Int = 5
-	Dim const minInt As Int = 0
-	Dim res As Double = userMass/mass.Get(from) * mass.Get(into)
-	result.Text = NumberFormat(res,minInt, place)
+	mainConvert(mass.Get(from), mass.Get(into))
 End Sub
 
 'convert distance/length function
@@ -207,12 +199,33 @@ Sub convertDist
 	distance.Put("centimeter", 100.00)
 	distance.Put("meter", 1.00)
 	distance.Put("foot", 3.28084)
-	Dim userDistance As Float = userInp.Text
+	
+	mainConvert(distance.Get(from), distance.Get(into))
+End Sub
 
-	Dim const place As Int = 5
-	Dim const minInt As Int = 0
-	Dim res As Double = userDistance/distance.Get(from) * distance.Get(into)
-	result.Text = NumberFormat(res,minInt, place)
+Sub mainConvert(from As Double, into As Double)
+	'declare the maximum number of decimal and minimum whole number
+	Dim const place As Int = 15
+	Dim const minInt As Int = 1
+	If first = True Then
+		'remove the comma
+		Dim usr As Double = userInp.Text.Replace(",","")'get user input field
+		
+		
+		'usr/from -> convert into the MAIN convert, *into convert it to the desired unit
+		Dim res As Double = usr/from * (into)
+		
+		
+		result.Text = NumberFormat(res,minInt, place)'display the result
+	Else if second = True Then 'same as the statment above but from and into are interchange
+		'remove the comma
+		Dim usr As Double = result.Text.Replace(",","") 'get result field
+
+		'interchange if from and into
+		'because the into is for the result field, the from is for the usrfield
+		Dim res As Double = usr/into * from
+		userInp.Text = NumberFormat(res,minInt, place)
+	End If
 End Sub
 
 'functions below just get what is selected by the user
@@ -290,18 +303,79 @@ Private Sub backImage_Click
 	result.Text = "0"
 End Sub
 
+Sub checkhigh(usr As String) As Boolean
+	If usr > 2000000000 Or usr < -2000000000 Then
+		ToastMessageShow("input/output is too high", False)
+		Return True
+	End If
+	If first = True Then
+		If userInp.Text.Replace(",","") > 2000000000 Or userInp.Text.Replace(",","") < -2000000000 Then
+			ToastMessageShow("input/output is too high", False)
+			Return True
+		Else if result.Text.Replace(",","") > 2000000000 Or result.Text.Replace(",","") < -2000000000 Then
+			ToastMessageShow("input/output is too high", False)
+			Return True
+		End If
+	End If
+	Return False
+End Sub
+
 'input function
 Sub input(number As String)
-	If userInp.Text = 0 Then 'checks if the value of text is 0
-		userInp.Text = number 'change the 0 to the inputted number
-		Return 'exit the process
+	
+	If first = True Then
+		If userInp.Text = 0 And number <> "." Then 'checks if the value of text is 0
+			userInp.Text = number 'change the 0 to the inputted number
+			Return 'exit the process
+		End If
+		'if statement below checks if dot already exist
+		'and the user is trying to input dot, end the function if its there
+		If number = "." And userInp.Text.Contains(".") Then
+			Return
+		End If
+		'takes the number that you want to input then put it in the user input
+		Dim usr As StringBuilder
+		usr.Initialize
+		usr.Append(userInp.Text.Replace(",","")) ' gets the user inp text
+		usr.Append(number) 'add the number that was clicked to the
+		
+		If checkhigh(usr) Then'checks where it is too high
+			Return
+		End If
+		
+		If number = "." Then
+			userInp.Text = usr
+			Return
+		End If
+		
+		userInp.Text = NumberFormat(usr, 1, 10) 'update the userinp
+	Else if second = True Then 'same as the statment above but for result input
+		If result.Text = 0 And number <> "." Then 'checks if the value of text is 0
+			result.Text = number 'change the 0 to the inputted number
+			Return 'exit the process
+		End If
+		'if statement below checks if dot already exist
+		'and the user is trying to input dot, end the function if its there
+		
+		If number = "." And result.Text.Contains(".") Then
+			Return
+		End If
+		
+		'takes the number that you want to input then put it in the user input
+		Dim usr As StringBuilder
+		usr.Initialize
+		usr.Append(result.Text.Replace(",","")) ' gets the user inp text
+		usr.Append(number) 'add the number that was clicked to the
+		If checkhigh(usr) Then'checks whether it is too high
+			Return
+		End If
+		If number = "." Then
+			result.Text = usr
+			Return
+		End If
+		result.Text = NumberFormat(usr, 1, 10) 'update the userinp
+		
 	End If
-	'takes the number that you want to input then put it in the user input
-	Dim usr As StringBuilder
-	usr.Initialize
-	usr.Append(userInp.Text) ' gets the user inp text
-	usr.Append(number) 'add the number that was clicked to the
-	userInp.Text = usr 'update the userinp
 End Sub
 
 'dot button
@@ -320,17 +394,45 @@ End Sub
 
 'backspace button
 Private Sub backspace_Click
-	Dim usr As String = userInp.Text
-	If usr.Length > 1 Then 'checks if there is text
-		usr = usr.SubString2(0, usr.Length -1) 'removes the last one
-		'the process above is get the SUBSTRING starting at 0 until the index -1
-	Else  'backspace for single characters
-		usr = "0" 'if deleted it will turn into 0
-	End If
+	If first = True Then
+		If userInp.Text = "." Then
+			userInp.Text = "0"
+			Return
+		End If
+		If userInp.Text = 0 Then
+			Return
+		End If
+		Dim usr As String = userInp.Text.Replace(",","")
+		If usr.Length > 1 Then 'checks if there is text
+			usr = usr.SubString2(0, usr.Length -1) 'removes the last one
+			'the process above is get the SUBSTRING starting at 0 until the index -1
+		Else  'backspace for single characters
+			usr = "0" 'if deleted it will turn into 0
+		End If
 
-	userInp.Text = usr
-	'change the userinp text
-	convert
+		userInp.Text = NumberFormat(usr,1,10)
+		'change the userinp text
+		convert
+	Else 'same as the if statment above but for the result input
+		If result.Text = "." Then
+			result.Text = "0"
+			Return
+		End If
+		If result.Text = 0 Then
+			Return
+		End If
+		Dim usr As String = result.Text.Replace(",","")
+		If usr.Length > 1 Then 'checks if there is text
+			usr = usr.SubString2(0, usr.Length -1) 'removes the last one
+			'the process above is get the SUBSTRING starting at 0 until the index -1
+		Else  'backspace for single characters
+			usr = "0" 'if deleted it will turn into 0
+		End If
+
+		result.Text = NumberFormat(usr,1,10)
+		'change the userinp text
+		convert
+	End If
 End Sub
 
 'code belows works like this:: below

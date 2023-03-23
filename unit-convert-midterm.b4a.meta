@@ -4,6 +4,6 @@ ModuleBreakpoints0=
 ModuleBreakpoints1=
 ModuleClosedNodes0=
 ModuleClosedNodes1=1
-NavigationStack=Main,Buttonclear_Click,270,6,Main,input,246,0,Main,backspace_Click,283,6,Visual Designer,MainFrame.bal,-100,6,Main,Activity_Pause,69,0,Main,Activity_Create,57,6,Main,Globals,40,6,Main,userInp_Click,388,6,Main,result_Click,394,5,Main,changeText,76,6
+NavigationStack=Visual Designer,MainFrame.bal,-100,1,Main,Globals,31,0,Main,convertDist,200,6,Main,convertMoney,134,6,Main,backspace_Click,375,6,Main,backImage_Click,278,0,Main,input,326,6,Main,checkhigh,291,6,Main,convertMass,158,6,Main,mainConvert,180,6
 SelectedBuild=0
 VisibleModules=1

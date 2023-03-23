@@ -2,119 +2,127 @@ b4a.example
 0
 0
 0
-main,activity_create,1,1,45,59
+main,activity_create,1,0,46,60
 ,userinp,,result,,mainframe,,background,,distaf,,distbef,,massaf,,massbef,,moneyaf,,moneybef,,startframe,,first,,second
 ,background,,distaf,,distbef,,massaf,,massbef,,moneyaf,,moneybef,,result,,userinp
 ,init,,declarelist,,changetext
-main,init,1,0,83,91
+main,init,1,0,84,92
 ,mainframe,,background,,distaf,,distbef,,massaf,,massbef,,moneyaf,,moneybef,,result,,userinp,,startframe
 ,background,,distaf,,distbef,,massaf,,massbef,,moneyaf,,moneybef,,result,,userinp
 
-main,declarelist,0,0,94,112
+main,declarelist,0,0,95,113
 ,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
 
 
-main,changetext,0,1,69,81
+main,changetext,0,0,70,82
 ,first,,userinp,,result,,second
 
 
-main,activity_pause,0,0,65,67
+main,activity_pause,0,0,66,68
 
 
 
-main,activity_resume,0,0,61,63
+main,activity_resume,0,0,62,64
 
 
 
-main,backimage_click,0,0,256,264
+main,backimage_click,0,0,269,277
 ,mainframe,,startframe,,userinp,,result
 
 
-main,backspace_click,0,0,295,307
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
+main,backspace_click,0,1,369,409
+,first,,userinp,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,second,,massbef,,massaf,,distbef,,distaf
 
-,convert,,convertmoney,,convertmass,,convertdist
-main,convert,0,0,313,322
-,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,userinp,,result,,massbef,,massaf,,distbef,,distaf
+,convert,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,convert,0,0,415,424
+,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,first,,userinp,,result,,second,,massbef,,massaf,,distbef,,distaf
 
-,convertmoney,,convertmass,,convertdist
-main,button0_click,0,0,324,328
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
+,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button0_click,0,0,426,430
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
 
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,input,0,0,267,278
-,userinp
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,input,0,1,297,352
+,first,,userinp,,second,,result
+
+,checkhigh
+main,button1_click,0,0,432,436
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button2_click,0,0,438,442
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button3_click,0,0,444,448
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button4_click,0,0,450,454
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button5_click,0,0,456,460
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button6_click,0,0,462,466
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button7_click,0,0,468,472
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button8_click,0,0,474,478
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,button9_click,0,0,480,484
+,first,,userinp,,second,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
+
+,input,,convert,,checkhigh,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,buttonclear_click,0,0,361,366
+,userinp,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,first,,second,,massbef,,massaf,,distbef,,distaf
+
+,convert,,convertmoney,,convertmass,,convertdist,,mainconvert
+main,buttondot_click,0,0,355,358
+,first,,userinp,,second,,result
+
+,input,,checkhigh
+main,checkhigh,0,1,279,294
+,first,,userinp,,result
 
 
-main,button1_click,0,0,330,334
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,button2_click,0,0,336,340
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,button3_click,0,0,342,346
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,button4_click,0,0,348,352
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,button5_click,0,0,354,358
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,button6_click,0,0,360,364
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,button7_click,0,0,366,370
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,button8_click,0,0,372,376
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,button9_click,0,0,378,382
-,userinp,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,result,,massbef,,massaf,,distbef,,distaf
-
-,input,,convert,,convertmoney,,convertmass,,convertdist
-main,buttonclear_click,0,0,287,292
-,userinp,,result,,coinclick,,weightclick,,lengthclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
-
-,convert,,convertmoney,,convertmass,,convertdist
-main,buttondot_click,0,0,281,284
-,userinp
-
-,input
-main,coin_click,0,0,193,198
+main,coin_click,0,0,206,211
 ,coinclick,,weightclick,,lengthclick,,startframe,,mainframe,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
 ,coinclick,,weightclick,,lengthclick
 ,transfermain
-main,transfermain,0,0,217,254
+main,transfermain,0,0,230,267
 ,startframe,,mainframe,,coinclick,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf,,weightclick,,lengthclick
 
 
-main,convertmoney,0,0,115,140
-,moneybef,,moneyaf,,userinp,,result
+main,convertmoney,0,0,116,136
+,moneybef,,moneyaf,,first,,userinp,,result,,second
+
+,mainconvert
+main,convertmass,0,0,139,157
+,massbef,,massaf,,first,,userinp,,result,,second
+
+,mainconvert
+main,convertdist,0,0,160,177
+,distbef,,distaf,,first,,userinp,,result,,second
+
+,mainconvert
+main,mainconvert,0,1,179,202
+,first,,userinp,,result,,second
 
 
-main,convertmass,0,0,143,165
-,massbef,,massaf,,userinp,,result
-
-
-main,convertdist,0,0,168,189
-,distbef,,distaf,,userinp,,result
-
-
-main,globals,0,1,21,43
+main,globals,0,1,21,44
 ,coinclick,,weightclick,,lengthclick,,first,,second
 ,coinclick,,weightclick,,lengthclick,,first,,second
 
-main,length_click,0,0,208,213
+main,length_click,0,0,221,226
 ,coinclick,,weightclick,,lengthclick,,startframe,,mainframe,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
 ,coinclick,,weightclick,,lengthclick
 ,transfermain
@@ -122,15 +130,15 @@ main,process_globals,0,1,15,19
 
 
 
-main,result_click,0,1,392,396
+main,result_click,0,0,494,498
 ,first,,second,,userinp,,result
 ,first,,second
 ,changetext
-main,userinp_click,0,1,386,390
+main,userinp_click,0,0,488,492
 ,first,,second,,userinp,,result
 ,first,,second
 ,changetext
-main,weight_click,0,0,201,206
+main,weight_click,0,0,214,219
 ,coinclick,,weightclick,,lengthclick,,startframe,,mainframe,,moneybef,,moneyaf,,massbef,,massaf,,distbef,,distaf
 ,coinclick,,weightclick,,lengthclick
 ,transfermain
